@@ -2,13 +2,13 @@
   <img alt="JobsCalc" title="JobsCalc" src="https://i.imgur.com/Veqm7Gh.png" width="220px" />
 </h1>
 
-<p align="center">
-  <img alt="dev.finances" src=".github/jobscalc.png" width="100%">
-</p>
-
 ## 💻 Project
 
 **JobsCalc** is a calculation estimation application for freelance projects, where it is possible to register and exclude jobs (projects), obtaining a cost estimate for each job. In addition, it is possible to plot the time value of the person who will be using the system 💰
+
+<p align="center">
+  <img alt="dev.finances" src="./jobscalc.png">
+</p>
 
 ## 🚀 Technologies
 
