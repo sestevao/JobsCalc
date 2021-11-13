@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <%- include('parts/head', {jsFile: "index", cssFile: "index"}) %>
+
+  <body id="page-index">
+    <header class="page-header">
+      <div class="container">
+        <section id="top" class="animate-up">
+          <h2 class="sr-only">Homepage</h2>
+
+          <img id="logo" src="/images/logo.svg" alt="Logo" />
+
+          <span id="notification">
+            <img src="/images/alert-octagon.svg" alt="Alerta" />
+            <% if(freeHours <= 0) { %> You don't have free time <% }else { %>
+            You have <%= freeHours %> free hours in your day <% } %>
+          </span>
+
+          <a href="/profile" id="avatar-profile">
+            <p><%= profile.name %> <span>View profile</span></p>
+            <img src="<%= profile.avatar %>" />
+          </a>
+        </section>
+
+        <div class="separator"></div>
+
+        <section id="summary" class="animate-up delay-1">
+          <h2 class="sr-only">Summary</h2>
+
+          <div class="info">
+            <div class="total">
+              <strong><%= status.total %></strong>
+              Projects in total
+            </div>
+            <div class="in-progress">
+              <strong><%= status.progress %></strong>
+              In progress
+            </div>
+            <div class="finished">
+              <strong><%= status.done %></strong>
+              Closed
+            </div>
+          </div>
+
+          <a class="button orange" href="/job">
+            <span><img src="/images/plus-24.svg" title="new job" /></span>
+            Add new job
+          </a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <main class="animate-up delay-2">
+        <h1 class="sr-only">Works</h1>
+
+        <div class="cards">
+          <% jobs.forEach((job)=> { %>
+
+          <div class="card <%= job.status %>" data-id="<%= job.id %>">
+            <div class="id column"><%= job.id %></div>
+            <div class="name column"><%= job.name %></div>
+
+            <div class="deadline column">
+              <span>Delivery time</span>
+              <p>
+                <% if(job.status==='progress' ){ %> <%= job.remaining %> days
+                for delivery <% }else{ %> Deadline <% } %>
+              </p>
+            </div>
+
+            <div class="amount column">
+              <span>Value</span>
+              <p>£<%= job.budget.toFixed(2).replace('.', ',' ) %></p>
+            </div>
+
+            <div class="status badge column">
+              <%= job.status==='done' ? 'Deadline' : 'In progress' %>
+            </div>
+
+            <div class="actions column flex">
+              <p class="sr-only">Actions</p>
+              <a
+                href="/job/<%= job.id %>"
+                class="button white edit"
+                title="Editar Job"
+              >
+                <img src="/images/edit-24.svg" title="Edit Job" />
+              </a>
+              <button class="delete button white" title="Remove Job">
+                <img src="/images/trash-24.svg" alt="Remove Job" />
+              </button>
+            </div>
+          </div>
+          <!-- end card -->
+          <% }) %>
+        </div>
+        <!-- end cards -->
+      </main>
+    </div>
+    <!-- end container -->
+
+    <div class="modal-wrapper">
+      <div class="modal">
+        <img src="/images/trash-48.svg" alt="Excluir Job" title="Excluir Job" />
+        <h3>Delete Job</h3>
+        <p>
+          Do you really want to delete this job? <br />
+          It will be erased forever.
+        </p>
+        <footer>
+          <a class="button gray" href="#">Cancel</a>
+          <button class="button red" type="submit" form="delete-job">
+            Delete Job
+          </button>
+        </footer>
+      </div>
+
+      <form method="post" action="/job/delete" id="delete-job"></form>
+    </div>
+    <!-- end modal-wrapper -->
+  </body>
+</html>
